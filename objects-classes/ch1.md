@@ -11,11 +11,11 @@ This is one of the most pervasive, but most incorrect, "facts" that perpetually 
 
 JS definitely has objects, but that doesn't mean that all values are objects. Nevertheless, objects are arguably the most important (and varied!) value type in the language, so mastering them is critical to your JS journey.
 
-The object mechanism is certainly the most flexible and powerful container type -- something you put other values into; every JS program you write will use them in one way or another. But that's not why objects deserve top billing for this book. Objects are the the foundation for the second of JS's three pillars: the prototype.
+The object mechanism is certainly the most flexible and powerful container type -- something you put other values into; every JS program you write will use them in one way or another. But that's not why objects deserve top billing for this book. Objects are the foundation for the second of JS's three pillars: the prototype.
 
 Why are prototypes (along with the `this` keyword, covered later in the book) so core to JS as to be one of its three pillars? Among other things, prototypes are how JS's object system can express the class design pattern, one of the most widely relied on design patterns in all of programming.
 
-So our journey here will start with objects, build up a compelete understanding of prototypes, de-mystify the `this` keyword, and explore the `class` system.
+So our journey here will start with objects, build up a complete understanding of prototypes, de-mystify the `this` keyword, and explore the `class` system.
 
 ## About This Book
 
@@ -127,7 +127,7 @@ One other minor difference is, JSON syntax -- that is, text that will be *parsed
 
 ### Property Names
 
-Property names in object literals are almost always treated/coeced as string values. One exception to this is for integer (or "integer looking") property "names":
+Property names in object literals are almost always treated/coerced as string values. One exception to this is for integer (or "integer looking") property "names":
 
 ```js
 anotherObj = {
@@ -367,7 +367,7 @@ Object.entries(myObj);
 // [ ["favoriteNumber",42], ["isDeveloper",true], ["firstName","Kyle"] ]
 ```
 
-Added in ES6, `Object.entries(..)` retieves this list of entries -- containing only owned an enumerable properties; see the "Property Descriptors" section in the next chapter -- from a source object.
+Added in ES6, `Object.entries(..)` retrieves this list of entries -- containing only owned and enumerable properties; see the "Property Descriptors" section in the next chapter -- from a source object.
 
 Such a list can be looped/iterated over, potentially assigning properties to another existing object. However, it's also possible to create a new object from a list of entries, using `Object.fromEntries(..)` (added in ES2019):
 
@@ -394,7 +394,7 @@ myObj = {
 };
 
 const favoriteNumber = (
-    myObj.favoriteNumber !== undefined ? myObj.favoriteNumber : 42
+    myObj.favoriteNumber !== undefined ? myObj.favoriteNumber : 12
 );
 const isDev = myObj.isDeveloper;
 const firstName = myObj.firstName;
@@ -431,7 +431,7 @@ The `{ favoriteNumber } = myObj` destructuring tells JS to find a property named
 
 The `= 12` part tells JS to provide `12` as a default value for the assignment to `favoriteNumber`, if the source object either doesn't have a `favoriteNumber` property, or if the property holds an `undefined` value.
 
-In the second destructuring pattern, the `isDeveloper: isDev` pattern is instructing JS to find a property named `isDeveloper` on the source object, and assign its value to an identifier named `isDev`. It's sort of a "renaming" of the source to the target. By contrast, `firstName: firstName` is providing the source and target for an assignment, but is redundant since they're identical; a single `firstName` would have sufficed here, and is generally more preferred.
+In the second destructuring pattern, the `isDeveloper: isDev` pattern is instructing JS to find a property named `isDeveloper` on the source object, and assign its value to an identifier named `isDev`. It's sort of a "renaming" of the source to the target. By contrast, `firstName: firstName` is providing the source and target for an assignment, but is redundant since they're identical; a single `firstName` would have sufficed here, and is generally preferred.
 
 The `lastName: lname = "--missing--"` combines both source-target renaming and a default value (if the `lastName` source property is missing or `undefined`).
 
@@ -526,9 +526,9 @@ Note that `null` and `undefined` can be object-ified, by calling `Object(null)` 
 
 | NOTE: |
 | :--- |
-| Boxing has a counterpart: unboxing. For example, the JS engine will take an object wrapper -- like a `Number` object wrapped around `42` -- created with `Number(42)` or `Object(42)` -- and unwrap it to retrieve the underlying primitive `42`, whenever a mathematical operation (like `*` or `-`) encounters such an object. Unboxing behavior is way out of scope for our discussion, but is covered fully in the aforementioned "Types & Grammar" title. |
+| Boxing has a counterpart: unboxing. For example, the JS engine will take an object wrapper -- like a `Number` object wrapped around `42` -- created with `new Number(42)` or `Object(42)` -- and unwrap it to retrieve the underlying primitive `42`, whenever a mathematical operation (like `*` or `-`) encounters such an object. Unboxing behavior is way out of scope for our discussion, but is covered fully in the aforementioned "Types & Grammar" title. |
 
-## Assiging Properties
+## Assigning Properties
 
 Whether a property is defined at the time of object literal definition, or added later, the assignment of a property value is done with the `=` operator, as any other normal assignment would be:
 
@@ -648,7 +648,7 @@ But what if we wanted to get *all* the keys in an object (enumerable or not)? `O
 
 Yet as we've implied several times already, and will cover in full detail in the next chapter, an object can also "inherit" contents from its `[[Prototype]]` chain. These are not considered *owned* contents, so they won't show up in any of these lists.
 
-Recall that the `in` operator will potentially traverse the entire chain looking for the existence of a property. Similarly, a `for..in` loop will traverse the chain and list any enumerable (owned or inhertied) properties. But there's no built-in API that will traverse the whole chain and return a list of the combined set of both *owned* and *inherited* contents.
+Recall that the `in` operator will potentially traverse the entire chain looking for the existence of a property. Similarly, a `for..in` loop will traverse the chain and list any enumerable (owned or inherited) properties. But there's no built-in API that will traverse the whole chain and return a list of the combined set of both *owned* and *inherited* contents.
 
 ## Temporary Containers
 
@@ -701,7 +701,7 @@ The most common usage of objects is as containers for multiple values. We create
 * defining properties (named locations), either at object creation time or later
 * assigning values, either at object creation time or later
 * accessing values later, using the location names (property names)
-* deleteing properties via `delete`
+* deleting properties via `delete`
 * determining container contents with `in`, `hasOwnProperty(..)` / `hasOwn(..)`, `Object.entries(..)` / `Object.keys(..)`, etc
 
 But there's a lot more to objects than just static collections of property names and values. In the next chapter, we'll dive under the hood to look at how they actually work.
